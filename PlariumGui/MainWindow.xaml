@@ -1,0 +1,21 @@
+﻿<Window x:Class="PlariumGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PlariumGui"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <DockPanel Margin="10">
+       
+            <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,0,0,10">
+                <StackPanel>
+                    <TextBox x:Name="textBox1" Text="Please download 'access_log Jul95 file' for parsing" Height="30" />
+                    <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Download log file"/>
+                </StackPanel>
+            </WrapPanel>
+            <TextBox Name="txtEditor" Margin="0,10,0,0" RenderTransformOrigin="0.5,0.025" />
+        </DockPanel>
+    </Grid>
+</Window>

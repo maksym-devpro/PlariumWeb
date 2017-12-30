@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlariumWeb", "PlariumWeb\PlariumWeb.csproj", "{6EBB98C3-B5CC-4FD6-BDA8-0B2C71AE7D16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlariumWeb.Tests", "PlariumWeb.Tests\PlariumWeb.Tests.csproj", "{72348FEA-1490-4FD7-9239-DCCBA2645116}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlariumGui", "PlariumGui\PlariumGui.csproj", "{9531C522-D706-44C8-BEC3-EC5C47C9AF31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation Layer", "Presentation Layer", "{6CCB946F-9A70-4E6F-A735-481FD6D6A833}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLayer", "BusinessLayer", "{3C44192D-DD9C-4051-9E3E-D2702133C690}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccessLayer", "DataAccessLayer", "{B39B2264-1E13-4F81-8906-6726A6340465}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParsingService", "ParsingService\ParsingService.csproj", "{14764337-2AAF-4C2A-9B4B-F5A2554534D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlariumDomain", "PlariumDomain\PlariumDomain.csproj", "{8DA2D21C-8E4F-44CC-84D7-FB3E9A13D08D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6EBB98C3-B5CC-4FD6-BDA8-0B2C71AE7D16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EBB98C3-B5CC-4FD6-BDA8-0B2C71AE7D16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EBB98C3-B5CC-4FD6-BDA8-0B2C71AE7D16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EBB98C3-B5CC-4FD6-BDA8-0B2C71AE7D16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72348FEA-1490-4FD7-9239-DCCBA2645116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72348FEA-1490-4FD7-9239-DCCBA2645116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72348FEA-1490-4FD7-9239-DCCBA2645116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72348FEA-1490-4FD7-9239-DCCBA2645116}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9531C522-D706-44C8-BEC3-EC5C47C9AF31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9531C522-D706-44C8-BEC3-EC5C47C9AF31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9531C522-D706-44C8-BEC3-EC5C47C9AF31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9531C522-D706-44C8-BEC3-EC5C47C9AF31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14764337-2AAF-4C2A-9B4B-F5A2554534D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14764337-2AAF-4C2A-9B4B-F5A2554534D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14764337-2AAF-4C2A-9B4B-F5A2554534D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14764337-2AAF-4C2A-9B4B-F5A2554534D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA2D21C-8E4F-44CC-84D7-FB3E9A13D08D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA2D21C-8E4F-44CC-84D7-FB3E9A13D08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA2D21C-8E4F-44CC-84D7-FB3E9A13D08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA2D21C-8E4F-44CC-84D7-FB3E9A13D08D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6EBB98C3-B5CC-4FD6-BDA8-0B2C71AE7D16} = {6CCB946F-9A70-4E6F-A735-481FD6D6A833}
+		{9531C522-D706-44C8-BEC3-EC5C47C9AF31} = {6CCB946F-9A70-4E6F-A735-481FD6D6A833}
+		{14764337-2AAF-4C2A-9B4B-F5A2554534D1} = {3C44192D-DD9C-4051-9E3E-D2702133C690}
+		{8DA2D21C-8E4F-44CC-84D7-FB3E9A13D08D} = {B39B2264-1E13-4F81-8906-6726A6340465}
+	EndGlobalSection
+EndGlobal
