@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\ILogService.cs" />
-    <Compile Include="Abstract\IParserLog.cs" />
+    <Compile Include="Abstraction\ILogService.cs" />
+    <Compile Include="Abstraction\IParserLog.cs" />
+    <Compile Include="LogService.cs" />
     <Compile Include="ParserLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

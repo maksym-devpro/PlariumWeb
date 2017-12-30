@@ -1,4 +1,4 @@
-﻿using PlariumDomain.Entities;
+﻿using Plarium.Domain.Entities; 
 using System.Collections.Generic;
 
 namespace ParsingService.Abstraction

@@ -1,7 +1,7 @@
 ﻿using ParsingService.Abstraction;
 using System;
-using System.Collections.Generic;
-using PlariumDomain.Entities;
+using System.Collections.Generic; 
+using Plarium.Domain.Entities;
 
 namespace ParsingService
 {

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using PlariumDomain.Abstraction.Base; 
+using System;
 
-namespace PlariumDomain.Entities
+namespace Plarium.Domain.Entities
 {
-    public class LogMessage
+    public class LogMessage: IBaseEntity
     {
         public Guid Id { get; set; }
+
+        public string IpAddress { get; set; }
 
         public DateTime RequestTime { get; set; }
 
