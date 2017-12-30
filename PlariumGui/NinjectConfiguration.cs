@@ -1,10 +1,8 @@
 ﻿using Ninject;
-using Ninject.Modules;
 using ParsingService;
 using ParsingService.Abstraction;
 using Plarium.Data.UnitOfWork;
 using Plarium.Interfaces.UnitOfWork;
-using PlariumGui;
 
 namespace DependencyInjectionModule
 {
@@ -17,9 +15,7 @@ namespace DependencyInjectionModule
             container.Bind<ILogService>().To<LogService>();
             container.Bind<IUnitOfWork>().To<UnitOfWork>();
 
-            return container;
-
-
+            return container; 
         }
  
     }

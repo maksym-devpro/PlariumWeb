@@ -29,7 +29,7 @@ namespace PlariumGui
             if (openFileDialog.ShowDialog() == true)
             {
                 string[] fileLogs = File.ReadAllLines(openFileDialog.FileName);
-
+           
                 var result = _logService.UploadLogsInDb(fileLogs);
 
                 txtEditor.Text = END_MESSAGE;
