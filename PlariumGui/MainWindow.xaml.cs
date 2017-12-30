@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using ParsingService.Abstraction;
 using System.IO;
 using System.Windows;
 
@@ -9,8 +10,12 @@ namespace PlariumGui
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly ILogService _logService;
+
+        public MainWindow(ILogService logService)
         {
+            this._logService = logService;
+
             InitializeComponent();
         }
 
@@ -21,6 +26,9 @@ namespace PlariumGui
             if (openFileDialog.ShowDialog() == true)
             {
                 string fileLogs = File.ReadAllText(openFileDialog.FileName);
+
+                this._logService.UploadLogsInDb(fileLogs);
+
                 txtEditor.Text = "All logs were loaded. Thank you.";
             }
         }
