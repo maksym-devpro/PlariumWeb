@@ -1,7 +1,7 @@
 ﻿using PlariumDomain.Entities;
 using System.Collections.Generic;
 
-namespace ParsingService.Abstract
+namespace ParsingService.Abstraction
 {
     public interface IParserLog
     {

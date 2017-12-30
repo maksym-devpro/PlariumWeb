@@ -1,4 +1,4 @@
-﻿using ParsingService.Abstract;
+﻿using ParsingService.Abstraction;
 using System;
 using System.Collections.Generic;
 using PlariumDomain.Entities;
