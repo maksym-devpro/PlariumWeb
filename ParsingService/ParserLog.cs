@@ -7,7 +7,7 @@ namespace ParsingService
 {
     public class ParserLog : IParserLog
     {
-        public List<LogMessage> ParseLogFile(string fileContent)
+        public List<LogMessage> ParseLogFile(string[] fileContent)
         {
             throw new NotImplementedException();
         }

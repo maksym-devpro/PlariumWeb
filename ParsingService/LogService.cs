@@ -19,7 +19,7 @@ namespace ParsingService
         #endregion
 
         #region Actions       
-        public bool UploadLogsInDb(string fileContent)
+        public bool UploadLogsInDb(string[] fileContent)
         {
             var logMessages = this._parserLog.ParseLogFile(fileContent);
 

@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -69,6 +73,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NinjectConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,6 +91,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -99,6 +105,14 @@
     <ProjectReference Include="..\ParsingService\ParsingService.csproj">
       <Project>{14764337-2aaf-4c2a-9b4b-f5a2554534d1}</Project>
       <Name>ParsingService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlariumDataInfrastructure\PlariumDataInfrastructure.csproj">
+      <Project>{EF58A0DA-6F29-473D-8902-B4BF77760275}</Project>
+      <Name>PlariumDataInfrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlariumDomain\PlariumDomain.csproj">
+      <Project>{8DA2D21C-8E4F-44CC-84D7-FB3E9A13D08D}</Project>
+      <Name>PlariumDomain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
