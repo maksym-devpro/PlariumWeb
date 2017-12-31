@@ -2,6 +2,6 @@
 {
     public interface ILogService
     {
-        bool UploadLogsInDb(string[] fileContent);
+        int UploadLogsInDb(string[] fileContent);
     }
 }

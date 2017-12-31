@@ -19,13 +19,13 @@ namespace ParsingService
         #endregion
 
         #region Actions       
-        public bool UploadLogsInDb(string[] fileContent)
+        public int UploadLogsInDb(string[] fileContent)
         {
             var logMessages = this._parserLog.ParseLogFile(fileContent);
 
-            var result = this._unitOfWork.LogMessage.Add(logMessages);
+          //  var result = this._unitOfWork.LogMessage.Add(logMessages);
 
-            return false;
+            return logMessages.Count;
         }
         #endregion
     }
