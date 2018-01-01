@@ -5,66 +5,62 @@ using Plarium.Domain.Entities;
 using System.Threading.Tasks;
 using System.Threading;
 using System.ComponentModel;
+using System.Windows.Threading;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ParsingService
 {
     public class ParserLog : IParserLog
     {
         private const string DATE_FORMAT_TEMPLATE = "dd/MMM/yyyy':'HH':'mm':'ss zzz";
-        private LogMessage[] LogMessages;
-        private Thread[] Threads;
+        private List<LogMessage> _logMessages;
+       
 
         public ParserLog()
         {
-            Threads = new Thread[7];
+            _logMessages = new List<LogMessage>();
         }
 
-        public LogMessage[] ParseLogFile(string[] fileContent)
+        public List<LogMessage> ParseLogFile(string[] fileContent,
+            UpdateProgressBarDelegate progressDelegate,
+            ProgressBar pg,
+            ProgressBarDelegate pg2,
+             Progress<int> progress)
         {
             int countLogs = fileContent.Length;
-            LogMessages = new LogMessage[countLogs];
-            int counterSuccsess = 0;
+      
+            double onePercent = countLogs/100;
+            double processingPercentage = 1;
+
 
             for(int i = 0; i< countLogs; i++)
             {
                 try
                 {
-                    LogMessages[i] = new LogMessage { Id = Guid.NewGuid() };
-
-                    //Thread newThread = new Thread(new ThreadStart(ThreadMethod));
-                    //newThread.SetApartmentState(ApartmentState.MTA);
-                    //newThread.Start();
-
+                    this._logMessages.Add(new LogMessage { Id = Guid.NewGuid() });
+                    
                     Thread t = new Thread(new ParameterizedThreadStart(AddLogToArray));
                     t.SetApartmentState(ApartmentState.MTA);
                     t.Start(new Param2(fileContent[i], i));
 
+                    if (i  > processingPercentage* onePercent)
+                    {
+                        processingPercentage++;
+                        ((IProgress<int>)progress).Report((int)processingPercentage);
+                        // progress.Report(processingPercentage);
+                        // pg.SetValue(ProgressBar.ValueProperty, processingPercentage);
+                        // pg2.Invoke(processingPercentage);
+                        //  progressDelegate.Invoke(ProgressBar.ValueProperty,processingPercentage);
 
-                    //  AddLogToArray(fileContent[i],i);
-                    // logs.Add(this.ConvertToLogMessage(log));
-                    counterSuccsess++;
+                    }
                 }
                 catch (Exception ex)
                 {
 
                 }
             }
-            return LogMessages;
-
-            // List<LogMessage> logs = new List<LogMessage>();
-            //foreach (string log in fileContent)
-            //{
-            //    try
-            //    {
-            //        logs.Add(this.ConvertToLogMessage(log));
-            //    }
-            //    catch (Exception ex)
-            //    {
-
-            //    }
-
-            //}
-            //   return logs;
+            return this._logMessages; 
         }
 
         private void AddLogToArray(object parametrs)
@@ -72,12 +68,7 @@ namespace ParsingService
             var param = (Param2)parametrs;
             string log = param.Log;
             int indexInArray = param.LogMessagesIndex;
-
-            System.Threading.Thread.CurrentThread.SetApartmentState(ApartmentState.MTA);//.GetApartmentState().ToString();
-
-            //Thread thread = new Thread(() => {
-            //    LogMessages[indexInArray].IpAddress = GetIpAddresAsync(log); });
-            //thread.Start();
+            
             var events = new List<ManualResetEvent>();
             var ipAddresEvent = new ManualResetEvent(false);
             ThreadPool.QueueUserWorkItem(GetIpAddresOperation, new Parametr(indexInArray,log, ipAddresEvent) );
@@ -90,15 +81,15 @@ namespace ParsingService
             var routeEvent = new ManualResetEvent(false);
             ThreadPool.QueueUserWorkItem(GetRouteOperation, new Parametr(indexInArray, log, routeEvent));
             events.Add(routeEvent);
-
-            var requestResultEvent = new ManualResetEvent(false);
-            ThreadPool.QueueUserWorkItem(GetRequestResultOperation, new Parametr(indexInArray, log, requestResultEvent));
-            events.Add(requestResultEvent);
-
+            
             var requestSizeEvent = new ManualResetEvent(false);
-            ThreadPool.QueueUserWorkItem(GetRequestSizeOperation, new Parametr(indexInArray, log, requestSizeEvent));
+            ThreadPool.QueueUserWorkItem(GetRequestRequestSizeOperation, new Parametr(indexInArray, log, requestSizeEvent));
             events.Add(requestSizeEvent);
-             
+
+
+            
+
+
             WaitHandle.WaitAll(events.ToArray());
         }
 
@@ -162,9 +153,7 @@ namespace ParsingService
 
         private int GetRequestResultAsync(string log)
         {
-            var startIndex = log.LastIndexOf("\" ");
-            startIndex += 2;
-            var logEnd = log.Remove(0, startIndex);
+            var logEnd = GetRequestResultSize(log);
 
             var resultAndByteSize = logEnd.Split(' ');
             var requestResult = Convert.ToInt32(resultAndByteSize[0]);
@@ -173,9 +162,8 @@ namespace ParsingService
 
         private int GetRequestSizeAsync(string log)
         {
-            var startIndex = log.IndexOf("\" ");
-            startIndex += 2;
-            var logEnd = log.Remove(0, startIndex);
+            var logEnd = GetRequestResultSize(log);
+
             var resultAndByteSize = logEnd.Split(' ');
             int result = 0;
             int.TryParse(resultAndByteSize[1], out result);
@@ -183,37 +171,51 @@ namespace ParsingService
             return result;
         }
 
+        private string GetRequestResultSize(string log)
+        {
+            var startIndex = log.IndexOf("\" ");
+            startIndex += 2;
+            var logEnd = log.Remove(0, startIndex);
+            return logEnd;
+        }
+
         public void GetIpAddresOperation(object logObject)
         {
             var parametr = (Parametr)logObject;
-            LogMessages[parametr.LogMessagesIndex].IpAddress = GetIpAddresAsync(parametr.Log);
+            this._logMessages[parametr.LogMessagesIndex].IpAddress = GetIpAddresAsync(parametr.Log);
             parametr.ManualResetEvent.Set();
         }
 
         public void GetDateTimeOperation(object logObject)
         {
             var parametr = (Parametr)logObject;
-            LogMessages[parametr.LogMessagesIndex].RequestTime = GetDateTimeAsync(parametr.Log);
+            this._logMessages[parametr.LogMessagesIndex].RequestTime = GetDateTimeAsync(parametr.Log);
             parametr.ManualResetEvent.Set();
         }
 
         public void GetRouteOperation(object logObject)
         {
             var parametr = (Parametr)logObject;
-            LogMessages[parametr.LogMessagesIndex].Route = GetRouteAsync(parametr.Log);
+            this._logMessages[parametr.LogMessagesIndex].Route = GetRouteAsync(parametr.Log);
             parametr.ManualResetEvent.Set();
         }
-        public void GetRequestResultOperation(object logObject)
+      
+        public void GetRequestRequestSizeOperation(object logObject)
         {
             var parametr = (Parametr)logObject;
-            LogMessages[parametr.LogMessagesIndex].RequestResult = GetRequestResultAsync(parametr.Log);
-            parametr.ManualResetEvent.Set();
-        }
 
-        public void GetRequestSizeOperation(object logObject)
-        {
-            var parametr = (Parametr)logObject;
-            LogMessages[parametr.LogMessagesIndex].RequestSize = GetRequestSizeAsync(parametr.Log);
+            var logEnd = GetRequestResultSize(parametr.Log);
+
+            var resultAndByteSize = logEnd.Split(' ');
+            int requestSize = 0;
+            int.TryParse(resultAndByteSize[1], out requestSize);
+
+          
+            var requestResult = Convert.ToInt32(resultAndByteSize[0]);
+
+            this._logMessages[parametr.LogMessagesIndex].RequestResult = requestResult;
+            this._logMessages[parametr.LogMessagesIndex].RequestSize = requestSize;
+
             parametr.ManualResetEvent.Set();
         }
 
