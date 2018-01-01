@@ -2,12 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Plarium.Domain.Entities;
-using System.Threading.Tasks;
 using System.Threading;
-using System.ComponentModel;
-using System.Windows.Threading;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace ParsingService
 {
@@ -16,17 +11,12 @@ namespace ParsingService
         private const string DATE_FORMAT_TEMPLATE = "dd/MMM/yyyy':'HH':'mm':'ss zzz";
         private List<LogMessage> _logMessages;
        
-
         public ParserLog()
         {
             _logMessages = new List<LogMessage>();
         }
 
-        public List<LogMessage> ParseLogFile(string[] fileContent,
-            UpdateProgressBarDelegate progressDelegate,
-            ProgressBar pg,
-            ProgressBarDelegate pg2,
-             Progress<int> progress)
+        public List<LogMessage> ParseLogFile(string[] fileContent, Progress<int> progress)
         {
             int countLogs = fileContent.Length;
       
@@ -48,11 +38,6 @@ namespace ParsingService
                     {
                         processingPercentage++;
                         ((IProgress<int>)progress).Report((int)processingPercentage);
-                        // progress.Report(processingPercentage);
-                        // pg.SetValue(ProgressBar.ValueProperty, processingPercentage);
-                        // pg2.Invoke(processingPercentage);
-                        //  progressDelegate.Invoke(ProgressBar.ValueProperty,processingPercentage);
-
                     }
                 }
                 catch (Exception ex)
@@ -85,37 +70,12 @@ namespace ParsingService
             var requestSizeEvent = new ManualResetEvent(false);
             ThreadPool.QueueUserWorkItem(GetRequestRequestSizeOperation, new Parametr(indexInArray, log, requestSizeEvent));
             events.Add(requestSizeEvent);
-
-
             
-
-
             WaitHandle.WaitAll(events.ToArray());
         }
 
 
-        private LogMessage ConvertToLogMessage(string log)
-        { 
 
-            Task<string> ipAddress = Task<string>.Factory.StartNew(() => GetIpAddresAsync(log));
-            Task<string> route = Task<string>.Factory.StartNew(() => GetRouteAsync(log));
-            Task<int> requestResult = Task<int>.Factory.StartNew(() => GetRequestResultAsync(log));
-            Task<DateTime> requestTime = Task<DateTime>.Factory.StartNew(() => GetDateTimeAsync(log));
-            Task<int> requestSize = Task<int>.Factory.StartNew(() => GetRequestSizeAsync(log));
-
-
-            return new LogMessage
-            {
-                Id = Guid.NewGuid(),
-                IpAddress = ipAddress.Result,
-                RequestTime = requestTime.Result,
-                Route = route.Result,
-                RequestResult = requestResult.Result,
-                RequestSize = requestSize.Result
-                // UrlQueryParameters = GetUrlQueryParameters(route),
-
-            };
-        }
 
         private string GetIpAddresAsync(string log)
         {

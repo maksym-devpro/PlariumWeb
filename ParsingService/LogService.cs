@@ -27,13 +27,9 @@ namespace ParsingService
         #endregion
 
         #region Actions       
-        public int UploadLogsInDb(string[] fileContent,
-            UpdateProgressBarDelegate progressDelegate,
-            ProgressBar pg,
-            ProgressBarDelegate pg2,
-             Progress<int> progress)
+        public int UploadLogsInDb(string[] fileContent, Progress<int> progress)
         {
-            var logMessages = this._parserLog.ParseLogFile(fileContent, progressDelegate,pg, pg2, progress);
+            var logMessages = this._parserLog.ParseLogFile(fileContent, progress);
 
           //  var result = this._unitOfWork.LogMessage.Add(logMessages);
 
