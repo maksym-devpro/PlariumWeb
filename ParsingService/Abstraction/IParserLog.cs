@@ -5,6 +5,6 @@ namespace ParsingService.Abstraction
 {
     public interface IParserLog
     {
-        List<LogMessage> ParseLogFile(string[] fileContent);
+         LogMessage[] ParseLogFile(string[] fileContent);
     }
 }

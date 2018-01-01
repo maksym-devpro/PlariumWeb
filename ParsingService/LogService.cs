@@ -25,7 +25,7 @@ namespace ParsingService
 
           //  var result = this._unitOfWork.LogMessage.Add(logMessages);
 
-            return logMessages.Count;
+            return logMessages.Length;
         }
         #endregion
     }
